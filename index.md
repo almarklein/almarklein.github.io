@@ -1,9 +1,9 @@
 # Test
 
-My actual website is at http://almarklein.org
+My actual website is at [http://almarklein.org](http://almarklein.org).
 
 A list of things:
 
-* foo
-* bar
-* baz
+  * foo
+  * bar
+  * baz
