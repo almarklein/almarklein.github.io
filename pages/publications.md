@@ -3,6 +3,11 @@
 
 ### Conference talks
 
+
+* wgpu and Pygfx - next-generation graphics for Python (video not yet online) <br />
+  EuroScipy 2024 (Szczecin, Poland).
+* OpenGL is dying, let's talk about WebGPU (video not yet online) <br />
+  EuroScipy 2024 (Szczecin, Poland).
 * [Let’s embrace WebAssembly!](https://www.youtube.com/watch?v=u2kKxmb9BWs) <br />
   EuroPython 2018 (Edinburgh, UK).
 * [Getting the hang of WASM](https://www.youtube.com/watch?v=KOC9EOQyU0k) <br />
@@ -38,14 +43,14 @@
   *Data Visualization with WebGL: From Python to JavaScript*, Chapter 6 in [WebGL Insights](http://www.webglinsights.com/).
   CRC Press, ISBN 9781498716079, 2015.
 * Almar Klein, J. Adam van der Vliet, Luuk J. Oostveen, Yvonne Hoogeveen, Leo J. Schultze Kool,
-  W. Klaas Jan Renema, Cornelis H. Slump - 
+  W. Klaas Jan Renema, Cornelis H. Slump -
   *[Automatic segmentation of the wire frame of stent grafts from CT data](https://doi.org/10.1016/j.media.2011.05.015)*.
   Medical image analysis, 2012.
 * Almar Klein, W. Klaas Jan Renema, J. Adam van der Vliet, Luuk J.Oostveen, Yvonne Hoogeveen,
-  Leo J. Schultze Kool and Cornelis H. Slump - 
+  Leo J. Schultze Kool and Cornelis H. Slump -
   *[Motion Calculations on Stent Grafts in AAA](https://doi.org/10.5772/17995)*.
   IntechOpen, 2011.
 * Almar Klein, Luuk J. Oostveen, Marcel J. W. Greuter, Yvonne Hoogeveen, Leo J. Schultze Kool,
-  Cornelis H. Slump, W. Klaas Jan Renema - 
+  Cornelis H. Slump, W. Klaas Jan Renema -
   *[Detectability of motions in AAA with ECG‐gated CTA: A quantitative study](http://dx.doi.org/10.1118/1.3213530)*.
   Medical Physics, 2009.
