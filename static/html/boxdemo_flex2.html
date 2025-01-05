@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test layout using flex deep nesting</title>
+<style>
+/* http://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+
+html {
+    height: 100%;  
+}
+
+body {    
+    height: 100%;
+    margin: 0px;
+}
+
+body > .hbox, body > .vbox {
+    height: 100%;
+    width: 100%;
+}
+    
+.hbox, .vbox {
+    box-sizing: border-box;
+    
+    margin: 0px;
+    
+    display: -webkit-flex;
+    display: -ms-flexbox;  /* IE 10 */
+    display: -ms-flex;     /* IE 11 */    
+    display: -moz-flex;
+    display: flex;
+    /*
+    justify-content: stretch;  /* start, end, center, space-between, space-around * /
+    align-items: stretch;
+    align-content: stretch;
+    */
+}
+    
+.hbox {
+    -webkit-flex-flow: row;
+    -ms-flex-flow: row;
+    -moz-flex-flow: row;    
+    flex-flow: row;
+    /*border: 1px dashed #44e;*/
+    width: 100%;    
+}
+.vbox {
+    -webkit-flex-flow: column;
+    -ms-flex-flow: column;    
+    -moz-flex-flow: column;    
+    flex-flow: column;   
+    /*border: 1px dashed #e44;*/
+    height: 100%;
+    width: 100%;
+}
+
+div {
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.hbox > .child, .vbox > .child {    
+    background: #dde;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 5px;
+    
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    -moz-flex-grow: 1;    
+    flex-grow: 1;
+}
+
+.hbox > div {    
+    margin: 0px;
+}
+ .vbox > div {    
+    margin: 0px;
+}
+    
+.hbox > .flex0, .vbox > .flex0 {
+    -ms-flex-grow: 0;
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+}
+.hbox > .flex1, .vbox > .flex1 {
+    -ms-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.hbox > .flex2, .vbox > .flex2 {
+    -ms-flex-grow: 2;
+    -webkit-flex-grow: 2;
+    flex-grow: 2;
+}
+    
+</style>
+</head>
+<body>
+
+    
+<div class='hbox'>
+    
+    <div class='vbox flex1'>
+        <div class='hbox flex1'>
+          <div class='child flex0'>Box A</div>
+          <div class='child flex0'>Box B</div>
+          <div class='child flex0'>Box C is a bit longer</div> 
+        </div>
+        <div class='hbox flex0'>
+          <div class='child flex1'>Box A</div>
+          <div class='child flex1'>Box B</div>
+          <div class='child flex1'>Box C is a bit longer</div> 
+        </div>
+        <div class='hbox flex1'>
+          <div class='child flex1'>Box A</div>
+          <div class='child flex0'>Box B</div>
+          <div class='child flex2'>Box C is a bit longer</div> 
+        </div>
+        <div class='hbox flex2'>
+          <div class='child flex1'>Box A</div>
+          <div class='child flex2'>Box B</div>
+          <div class='child flex2'>Box C is a bit longer</div> 
+        </div>                
+    </div>
+    
+    <div class='vbox flex1'>
+        <div class='hbox flex1'>
+          <div class='child flex0'>Box A</div>
+          <div class='child flex0'>Box B</div>
+          <div class='child flex0'>Box C is a bit longer</div> 
+        </div>
+        <div class='hbox flex0'>
+          <div class='child flex1'>Box A</div>
+          <div class='child flex1'>Box B</div>
+          <div class='child flex1'>Box C is a bit longer and <br /> has more lines and an img <br /> <img src='http://zoof.io/_static/zooflogo220.png' height='50' /></div> 
+        </div>
+        <div class='hbox flex1'>
+          <div class='child flex1'>Box A</div>
+          <div class='child flex0'>Box B</div>
+          <div class='child flex2'>Box C is a bit longer</div> 
+        </div>
+        <div class='hbox flex2'>
+          <div class='child flex1'>Box A</div>
+          <div class='child flex2'>Box B</div>
+          <div class='child flex1'>Box C is a bit longer and <br /> has more lines and an img <br /> <img src='http://zoof.io/_static/zooflogo220.png' height='50' /></div> 
+        </div>                
+    </div>
+</div>
+
+    
+<div id='fps' style='position:fixed; top:0px; left:0px; width:80px; height:20px; background:#afa;'> fps</div>
+<script>
+var timer = {
+    tail: 50,  // how many samples to take a measurement on
+    showinterval: 1000,  // each x ms show the fps in the log
+    elapsed: [],
+    lastshow: 0,
+    tick: function (now) {
+        this.elapsed.push(now);
+        this.elapsed = this.elapsed.slice(-this.tail);
+        if (now - this.lastshow > this.showinterval) {
+            this.lastshow = now;
+            var elapsed = (now - (this.elapsed[0] || now)) / 1000;
+            var fps = Math.round(this.elapsed.length / elapsed);
+            //console.log(fps);
+            document.getElementById('fps').innerHTML = fps + ' FPS (F)';
+        }
+    },
+    start: function (now) {
+        requestAnimationFrame(timer.start);        
+        timer.tick(now);
+    }    
+};
+timer.start()    
+</script>
+    
+</body>
+</html>

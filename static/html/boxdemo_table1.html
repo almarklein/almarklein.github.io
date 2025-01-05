@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple box layout using table</title>
+    <style>html{height:100%;}body{height:100%;margin:0px;}.zf-layout{width:100%;height:100%;margin:0px;padding:0px;border-spacing:0px;border:0px;}.hcell.vcell{padding:0px;}.zf-pinboard{position:relative;}td.vflex>.zf-widget{height:100%;}td.hflex>.zf-widget{width:100%;}.zf-pinboard>.zf-widget{position:absolute;}.zf-form>tr>td>.zf-label{text-align:right;}.zf-widget{box-sizing:border-box;white-space:nowrap;overflow:hidden;}.zf-label{}body{background-color:#eee;}</style>
+</head>
+
+<body id='body'>
+    <script>
+        // Init zoof namespace
+        window.zoof = {};
+        zoof.ws = null;
+        zoof.isExported = true;
+        
+        zoof.runExportedApp = function () {
+            zoof.command('EXEC zoof.createHBox({"vflex": 0, "parent": "body", "className": "zf-hbox zf-layout zf-widget", "hflex": 0, "spacing": "0px", "id": "HBox1", "margin": "0px", "pos": [0, 0]});');
+            zoof.command('EXEC zoof.setProps("HBox1", "flex", (0, 0));');
+            zoof.command('EXEC zoof.createButton({"vflex": 0, "parent": "HBox1", "className": "zf-button zf-widget", "hflex": 0, "text": "Box A", "id": "Button2", "pos": [0, 0]});');
+            zoof.command('EXEC zoof.setProps("Button2", "flex", (0, 0));');
+            zoof.command('EXEC zoof.createButton({"vflex": 0, "parent": "HBox1", "className": "zf-button zf-widget", "hflex": 0, "text": "Box B", "id": "Button3", "pos": [0, 0]});');
+            zoof.command('EXEC zoof.setProps("Button3", "flex", (0, 0));');
+            zoof.command('EXEC zoof.createButton({"vflex": 0, "parent": "HBox1", "className": "zf-button zf-widget", "hflex": 0, "text": "Box C is a bit longer", "id": "Button4", "pos": [0, 0]});');
+            zoof.command('EXEC zoof.setProps("Button4", "flex", (0, 0));');
+            zoof.command("EXEC zoof.get('HBox1').applyLayout();");
+        };
+    </script>
+    <script>"use strict";function decodeUtf8(arrayBuffer){var result="",i=0,c=0,c1=0,c2=0,c3=0,data=new window.Uint8Array(arrayBuffer);if(data.length>=3&&data[0]===0xef&&data[1]===0xbb&&data[2]===0xbf){i=3;}while(i<data.length){c=data[i];if(c<128){result+=String.fromCharCode(c);i+=1;}else if(c>191&&c<224){if(i+1>=data.length){throw "UTF-8 Decode failed. Two byte character was truncated.";}c2=data[i+1];result+=String.fromCharCode(((c&31)<<6)|(c2&63));i+=2;}else{if(i+2>=data.length){throw "UTF-8 Decode failed. Multi byte character was truncated.";}c2=data[i+1];c3=data[i+2];result+=String.fromCharCode(((c&15)<<12)|((c2&63)<<6)|(c3&63));i+=3;}}return result;}</script>
+    <script>"use strict";zoof.widgets={};zoof.AUTOFLEX=729;zoof.get=function(id){if(id==='body'){return document.body;}else{return zoof.widgets[id];}};zoof.createWidgetElement=function(type,D){var e=document.createElement(type),par;e.id=D.id;zoof.widgets[D.id]=e;e.className=D.className;e.hflex=D.hflex;e.vflex=D.vflex;e.zfInfo=D;e.style.left=(D.pos[0]>1 ? D.pos[0]+"px":D.pos[0]*100+"%");e.style.top=(D.pos[1]>1 ? D.pos[1]+"px":D.pos[1]*100+"%");par=zoof.get(D.parent);if(typeof par.appendWidget==='function'){par.appendWidget(e);}else{par.appendChild(e);}e.checkResize=function(){setTimeout(e.checkResizeNow,0);};e.storedSize=[0,0];e.checkResizeNow=function(){var i,func,event;event=new window.CustomEvent("resize");event.widthChanged=(e.storedSize[0] !==e.clientWidth);event.heightChanged=(e.storedSize[1] !==e.clientHeight);if(event.widthChanged||event.heightChanged){e.storedSize=[e.clientWidth,e.clientHeight];e.dispatchEvent(event);}};e.checkResize();if(par===document.body){window.addEventListener('resize',e.checkResize,false);}else{par.addEventListener('resize',e.checkResize,false);}return e;};zoof.setProps=function(id){var i,e=zoof.get(id);for(i=0;i<arguments.length;i+=2){e[arguments[i]]=arguments[i+1];}};zoof.setStyle=function(id){var i,e=zoof.get(id);for(i=1;i<arguments.length;i+=2){e.style[arguments[i]]=arguments[i+1];}};zoof.createWidget=function(D){var e=zoof.createWidgetElement('div',D);};zoof.createLabel=function(D){var e=zoof.createWidgetElement('div',D);e.innerHTML=D.text;};zoof.createButton=function(D){var e=zoof.createWidgetElement('button',D);e.innerHTML=D.text;};zoof.createHBox=function(D){var e,row;e=zoof.createWidgetElement('table',D);row=document.createElement("tr");e.appendChild(row);e.style.padding=D.margin;e.appendWidget=function(child){var td=document.createElement("td");row.appendChild(td);td.appendChild(child);if(row.children.length>1){td.style['padding-left']=D.spacing;}};e.applyLayout=function(){zoof.applyTableLayout(this);};e.applyCellLayout=function(row,col,vflex,hflex,cum_vflex,cum_hflex){col.style.height='100%';if(hflex===0){col.className='';col.style.width='auto';}else{col.className='hflex';col.style.width=hflex*100/cum_hflex+'%';}};};zoof.createVBox=function(D){var e=zoof.createWidgetElement('table',D);e.appendWidget=function(child){var tr=document.createElement("tr"),td=document.createElement("td");this.appendChild(tr);tr.appendChild(td);td.appendChild(child);};e.applyLayout=function(){zoof.applyTableLayout(this);};e.applyCellLayout=function(row,col,vflex,hflex,cum_vflex,cum_hflex){row.vflex=vflex;if(vflex===0){col.className='hflex';row.style.height='auto';}else{col.className='vflex hflex';row.style.height=vflex*100/cum_vflex+'%';}};e.addEventListener('resize',zoof.adaptLayoutToSizeChange,false);};zoof.createForm=function(D){var e=zoof.createWidgetElement('table',D);e.appendChild(document.createElement("tr"));e.appendWidget=function(child){var row,td,itemsinrow;row=e.children[e.children.length-1];itemsinrow=row.children.length;if(itemsinrow>=2){row=document.createElement("tr");e.appendChild(row);}td=document.createElement("td");row.appendChild(td);td.appendChild(child);child.hflex=(row.children.length===1 ? 0:1);};e.applyLayout=function(){zoof.applyTableLayout(this);};e.applyCellLayout=function(row,col,vflex,hflex,cum_vflex,cum_hflex){var className='';if((vflex===zoof.AUTOFLEX)||(vflex===0)){row.style.height='auto';className+='';}else{row.style.height=vflex*100/cum_vflex+'%';className+='vflex';}className+=' ';if(hflex===0){col.style.width='auto';className+='';}else{col.style.width='100%';className+='hflex';}col.className=className;};e.addEventListener('resize',zoof.adaptLayoutToSizeChange,false);};zoof.createGrid=function(D){var e=zoof.createWidgetElement('table',D);e.appendChild(document.createElement("tr"));e.appendWidget=function(child){var i,j,row,cell;i=child.zfInfo.pos[1];j=child.zfInfo.pos[0];while(i>=e.children.length){e.appendChild(document.createElement("tr"));}row=e.children[i];while(j>=row.children.length){row.appendChild(document.createElement("td"));}cell=row.children[j];cell.appendChild(child);};e.applyLayout=function(){zoof.applyTableLayout(this);};e.applyCellLayout=function(row,col,vflex,hflex,cum_vflex,cum_hflex){var className='';if(vflex===0){row.style.height='auto';className+='';}else{row.style.height=vflex*100/cum_vflex+'%';className+='vflex';}className+=' ';if(hflex===0){col.style.width='auto';className+='';}else{col.style.width=hflex*100/cum_hflex+'%';className+=' hflex';}col.className=className;};e.addEventListener('resize',zoof.adaptLayoutToSizeChange,false);};zoof.createPinBoard=function(D){var e=zoof.createWidgetElement('div',D);e.applyLayout=function(){};};zoof.applyTableLayout=function(table){var row,col,i,j,nrows,ncols,vflexes,hflexes,cum_vflex,cum_hflex;nrows=table.children.length;ncols=0;for(i=0;i<nrows;i+=1){row=table.children[i];ncols=Math.max(ncols,row.children.length);}if(nrows===0||ncols===0){return;}vflexes=[];hflexes=[];for(i=0;i<nrows;i+=1){row=table.children[i];for(j=0;j<ncols;j+=1){col=row.children[j];if((col===undefined)||(col.children.length===0)){continue;}vflexes[i]=Math.max(vflexes[i]||0,col.children[0].vflex||0);hflexes[j]=Math.max(hflexes[j]||0,col.children[0].hflex||0);}}cum_vflex=vflexes.reduce(function(pv,cv){return pv+cv;},0);cum_hflex=hflexes.reduce(function(pv,cv){return pv+cv;},0);if(cum_vflex===0){for(i=0;i<vflexes.length;i+=1){vflexes[i]=zoof.AUTOFLEX;}cum_vflex=vflexes.length*zoof.AUTOFLEX;}if(cum_hflex===0){for(i=0;i<hflexes.length;i+=1){hflexes[i]=zoof.AUTOFLEX;}cum_hflex=hflexes.length*zoof.AUTOFLEX;}for(i=0;i<nrows;i+=1){row=table.children[i];row.vflex=vflexes[i]||0;for(j=0;j<ncols;j+=1){col=row.children[j];if((col===undefined)||(col.children.length===0)){continue;}table.applyCellLayout(row,col,vflexes[i],hflexes[j],cum_vflex,cum_hflex);}}};zoof.adaptLayoutToSizeChange=function(event){var table,row,col,i,j,cum_vflex,remainingHeight,remainingPercentage,maxHeight;table=event.target;if(event.heightChanged){for(i=0;i<table.children.length;i+=1){row=table.children[i];if(row.vflex>0){row.style.height='100%';break;}}remainingHeight=table.clientHeight;cum_vflex=0;for(i=0;i<table.children.length;i+=1){row=table.children[i];cum_vflex+=row.vflex;if((row.vflex===0)&&(row.children.length>0)){remainingHeight-=row.children[0].clientHeight;}}remainingPercentage=100*remainingHeight/table.clientHeight;for(i=0;i<table.children.length;i+=1){row=table.children[i];if(row.vflex>0){row.style.height=Math.round(row.vflex/cum_vflex*remainingPercentage)+1+'%';}}}};</script>
+    <script>"use strict";zoof.init=function(){if(zoof.isExported){zoof.runExportedApp();}else{zoof.initSocket();zoof.initLogging();}};zoof.exit=function(){if(zoof.ws){zoof.ws.close();}};window.addEventListener('load',zoof.init,false);window.addEventListener('beforeunload',zoof.exit,false);zoof.command=function(msg){var log,link;log=document.getElementById('log');if(msg.search('EVAL ')===0){window._=eval(msg.slice(5));zoof.ws.send('RET '+window._);}else if(msg.search('EXEC ')===0){eval(msg.slice(5));}else if(msg.search('TITLE ')===0){document.title=msg.slice(6);}else if(msg.search('ICON ')===0){link=document.createElement('link');link.rel='icon';link.href=msg.slice(5);document.getElementsByTagName('head')[0].appendChild(link);}else if(msg.search('OPEN ')===0){window.win1=window.open(msg.slice(5),'new','chrome');}else{log.innerHTML+=msg+"<br />";}};zoof.initSocket=function(){var loc,url,ws;zoof.lastmsg=null;if(window.WebSocket===undefined){document.body.innerHTML='This browser does not support WebSockets';return;}loc=location;url="ws://"+loc.hostname+':'+loc.port+"/"+loc.pathname+"/ws";ws=new window.WebSocket(url);zoof.ws=ws;ws.binaryType="arraybuffer";ws.onmessage=function(evt){var msg;zoof.lastmsg=evt.data;msg=decodeUtf8(evt.data);zoof.command(msg);};ws.onclose=function(ev){document.body.innerHTML='Lost connection with GUI server:<br >';document.body.innerHTML+=ev.reason+" ("+ev.code+")";};ws.onopen=function(ev){var log=document.getElementById('log');log+='Socket connected'+"<br />";};ws.onerror=function(ev){var log=document.getElementById('log');log.innerHTML+='Socket error'+ev.error+"<br />";};};zoof.initLogging=function(){var errorHandler;console.ori_log=console.log;console.ori_info=console.info||console.log;console.ori_warn=console.warn||console.log;console.log=function(msg){zoof.ws.send("INFO "+msg);console.ori_log(msg);};console.info=function(msg){zoof.ws.send("INFO "+msg);console.ori_info(msg);};console.warn=function(msg){zoof.ws.send("WARN "+msg);console.ori_warn(msg);};window.addEventListener('error',errorHandler,false);errorHandler=function(ev){var intro="On line "+ev.lineno+" in "+ev.filename+":";zoof.ws.send("ERROR "+intro+'\n    '+ev.message);};};</script>    
+        
+    <!--
+    <div>
+        <input type="text" id="msg" value="message">
+        <input type="submit" id="send" value="send" /><br />
+    </div>
+    -->
+    <div id="log" style="display: none;"> LOG:<br><br></div>
+
+<div id='fps' style='position:fixed; top:0px; left:0px; width:80px; height:20px; background:#afa;'> fps</div>
+<script>
+var timer = {
+    tail: 50,  // how many samples to take a measurement on
+    showinterval: 1000,  // each x ms show the fps in the log
+    elapsed: [],
+    lastshow: 0,
+    tick: function (now) {
+        this.elapsed.push(now);
+        this.elapsed = this.elapsed.slice(-this.tail);
+        if (now - this.lastshow > this.showinterval) {
+            this.lastshow = now;
+            var elapsed = (now - (this.elapsed[0] || now)) / 1000;
+            var fps = Math.round(this.elapsed.length / elapsed);
+            //console.log(fps);
+            document.getElementById('fps').innerHTML = fps + ' FPS (T)';
+        }
+    },
+    start: function (now) {
+        requestAnimationFrame(timer.start);        
+        timer.tick(now);
+    }    
+};
+timer.start()    
+</script>
+</body>
+</html>

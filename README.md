@@ -1,4 +1,4 @@
-# almarklein.github.io
-Testing Github pages
+# Almar's website
 
-Check the result at [http://almarklein.github.io/](http://almarklein.github.io/).
+This is the source code for my website/blog. It uses `makesite.py` to generate
+the website from a set of markdown pages.

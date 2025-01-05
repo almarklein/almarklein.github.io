@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test layout using flex deep nesting</title>
+<style>
+/* http://infrequently.org/2009/08/css-3-progress/ */
+
+html {
+    height: 100%;  
+}
+
+body {    
+    height: 100%;
+    margin: 0px;
+}
+
+body > .hbox, body > .vbox {
+    height: 100%;
+    width: 100%;
+}
+    
+.hbox, .vbox {
+    box-sizing: border-box;
+    
+    margin: 0px;
+    
+    display: -webkit-box;
+    display: -moz-box;    
+    display: box;
+    
+    -webkit-box-align: stretch;
+    -moz-box-align: stretch;
+    box-align: stretch;
+    /*
+    justify-content: stretch;  /* start, end, center, space-between, space-around * /
+    align-items: stretch;
+    align-content: stretch;
+    */
+}
+    
+.hbox {
+    /*flex-flow: row;*/
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+    border: 1px dashed #44e;/**/    
+}
+.vbox {
+    /*flex-flow: column; */
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
+    border: 1px dashed #e44;/**/    
+}
+
+div {
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.hbox > .child, .vbox > .child {    
+    background: #dde;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 5px;
+        
+    /*flex: 1 1 auto;    */
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+    
+.hbox > div {
+    margin: 0px;
+}
+ .vbox > div {
+    margin: 0px;
+}
+    
+.hbox > .flex0, .vbox > .flex0 {
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    box-flex: 0;
+}
+.hbox > .flex1, .vbox > .flex1 {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+.hbox > .flex2, .vbox > .flex2 {
+    -webkit-box-flex: 2;
+    -moz-box-flex: 2;
+    box-flex: 2;
+}
+
+    
+</style>
+</head>
+<body>
+
+
+<div class='hbox flex1'>
+  <div class='child flex1'>Box A</div>
+  <div class='child flex0'>Box B</div>
+  <div class='child flex2'>Box C is a bit longer</div> 
+</div>
+
+
+<div id='fps' style='position:fixed; top:0px; left:0px; width:80px; height:20px; background:#afa;'> fps</div>
+<script>
+var timer = {
+    tail: 50,  // how many samples to take a measurement on
+    showinterval: 1000,  // each x ms show the fps in the log
+    elapsed: [],
+    lastshow: 0,
+    tick: function (now) {
+        this.elapsed.push(now);
+        this.elapsed = this.elapsed.slice(-this.tail);
+        if (now - this.lastshow > this.showinterval) {
+            this.lastshow = now;
+            var elapsed = (now - (this.elapsed[0] || now)) / 1000;
+            var fps = Math.round(this.elapsed.length / elapsed);
+            //console.log(fps);
+            document.getElementById('fps').innerHTML = fps + ' FPS (B)';
+        }
+    },
+    start: function (now) {
+        requestAnimationFrame(timer.start);        
+        timer.tick(now);
+    }    
+};
+timer.start()    
+</script>
+    
+</body>
+</html>

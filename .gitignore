@@ -1,0 +1,9 @@
+pelican-plugins
+pelican-themes
+__pycache__
+*.pyc
+_build/*
+output/*
+cache/*
+*.pid
+.DS_Store
