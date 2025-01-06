@@ -18,7 +18,7 @@ TITLE = "Almar Klein"
 
 NAV = {
     "Blog": "index",
-    "About me": "about",
+    "About": "about",
     "Code": "code",
     "Publications": "publications",
     "Consulting": "consulting",
