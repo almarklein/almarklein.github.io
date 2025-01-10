@@ -1,4 +1,4 @@
-# About me
+# About
 
 <img src='images/almar-freeman2.jpg'
 style='width:128px; height:128px; float:right; margin-left:0.7em; margin-bottom:0.7em;'>

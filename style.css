@@ -251,3 +251,28 @@ img.thumb {
     margin: 0 1em 0.5em 0;
     border-radius: 4px;
 }
+
+
+/**************** Special stuff ****************/
+
+a.gh {
+    background: #fafaff;
+    border-radius: 3px;
+    padding: 2px 5px;
+    position: relative;
+}
+a.gh:hover {
+    text-decoration: none;
+    background: #eef;
+}
+a.gh img.stars {
+    display: none;
+    position: absolute;
+    left: 0px;
+    top: 25px;
+    z-index: 99;
+}
+a.gh:hover img.stars {
+    display: inline-block;
+}
+

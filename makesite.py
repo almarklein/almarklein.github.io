@@ -5,6 +5,7 @@ Tweaked for almarklein.org
 """
 
 import os
+import re
 import shutil
 import webbrowser
 
@@ -14,7 +15,7 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
 
 
-TITLE = "Almar Klein"
+TITLE = "Almar's blog"
 
 NAV = {
     "Blog": "index",
@@ -38,6 +39,9 @@ POSTS_DIR = os.path.join(THIS_DIR, "posts")
 
 
 REDIRECT = '<html><head><meta HTTP-EQUIV="REFRESH" content="0; url=URL"></head></html>'
+
+
+re_gh_link = re.compile(r"\[([\w\-]+)\]\((https://github.com/[\w\-]+/[\w\-]+)\)")
 
 
 def create_menu(page):
@@ -290,6 +294,17 @@ class Page:
         for n in page_names:
             text = text.replace(f"]({n})", f"]({n}.html)")
             text = text.replace(f"]({n}.md)", f"]({n}.html)")
+
+        # Show GH links in a nicer way
+        while True:
+            m = re.search(re_gh_link, text)
+            if not m:
+                break
+            name, url = m.group(1), m.group(2)
+            repo = url.rsplit(".com/",1)[-1]
+            stars = f"<img loading='lazy' class='stars' src='https://img.shields.io/github/stars/{repo}?style=f'/>"
+            link = f"<a class='gh' href='{url}'><i class='fab'>\uf09b</i>{name}{stars}</a>"
+            text = text[:m.start(0)] + link + text[m.end(0):]
         return text
 
     def _highlight(self, text):
