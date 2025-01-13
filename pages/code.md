@@ -5,7 +5,7 @@ This is an overview of projects that I work on (or have worked on).
 
 ## Visualization
 
-### Previous work
+### Earlier work
 
 <img style="float: right; margin:10px;" src="https://raw.githubusercontent.com/wiki/almarklein/visvis/images/overviewScreen.png" width="300px"/>
 
@@ -13,13 +13,17 @@ My first visualization library, [Visvis](https://github.com/almarklein/visvis), 
 
 In 2012 I founded the [Vispy](https://github.com/vispy/vispy) project together with Luke Campagnola Nicolas Rougier, and Cyrille Rossant. It was purposed to replace each of our own projects, including Visvis. However, we've made the scope too big and all of us left for various reasons before it was finished. David Hoese heroically maintained the project for many years.
 
+I've also contributed to [Bokeh](https://github.com/bokeh/bokeh/) and helped create [Plotly Dash Slicer](https://github.com/plotly/dash-slicer/).
+
 ### Pygfx
 
 <img style="float: right; margin:10px;" src="https://pygfx.org/pygfx1024.png" width="160px"/>
 
 In 2020 Korijn van Golen and I started working on a new viz stack based on WebGPU. We  built a Python wrapper, [wgpu-py](https://github.com/pygfx/wgpu-py), on top of which we built a 3D render engine: [pygfx](https://github.com/pygfx/pygfx).
 
-The [rendercanvas](https://github.com/pygfx/rendercanvas) is used in the above to provide a canvas to render to.
+Pygfx is an awesome project! It can do things that I could only dream of when I was working on Visvis and Vispy.
+
+The [rendercanvas](https://github.com/pygfx/rendercanvas) is used by wgpu and Pygfx to provide a canvas to render.
 The [jupyter_rfb](https://github.com/vispy/jupyter_rfb) library provides a way for
 visualization libraries (like Vispy and Pygfx) to show figures in Jupyter lab/notebook.
 
@@ -41,16 +45,6 @@ doing a lot of work to move Pyzo forwards.
 
 
 <div style='clear: both;'></div>
-## Zoof programming language
-
-My secret dream is to create a new programming language based on WebAssembly.
-From time to time I create some time to hack on [Zoof](https://github.com/zoof-lang/zoof-boot).
-
-Also a shout out to Robert Nystrom's [Crafting Interpreters](https://craftinginterpreters.com/), it's an awesome book if you have an interest in how
-programming languages work!
-
-
-<div style='clear: both;'></div>
 ## TimeTagger
 
 <img style="float: right" width=96 src="images/timetagger192_sf.png" />
@@ -59,7 +53,9 @@ programming languages work!
 
 
 <div style='clear: both;'></div>
-## Web backend
+## Web
+
+### Backend
 
 As I gained an interest for the web, I developed a few small tools.
 TimeTagger uses some of these, and the website that you're
@@ -79,6 +75,10 @@ dicts in an SQLite database.
 
 [MyPaas](https://github.com/almarklein/mypaas) is a tool to manage a
 PaaS using Traefik and Docker, e.g. to run multiple websites.
+
+### Frontend
+
+[FAQ-div](https://github.com/almarklein/faq-div) is a small JS library that makes it easy to create effective FAQ pages.
 
 
 <div style='clear: both;'></div>
@@ -140,7 +140,35 @@ suited for wide adoption.
 
 
 <div style='clear: both;'></div>
-## Research
+## WASM experiments
+
+### Zoof programming language
+
+My secret dream is to create a new programming language based on WebAssembly.
+From time to time I create some time to hack on [Zoof](https://github.com/zoof-lang/zoof-boot).
+
+Also a shout out to Robert Nystrom's [Crafting Interpreters](https://craftinginterpreters.com/), it's an awesome book if you have an interest in how
+programming languages work!
+
+### WASM with Python
+
+The [rocket_rust_py](https://github.com/almarklein/rocket_rust_py) repo contains
+an experiment to run Rust in Python via WebAssembly.
+
+The [wasmfun](https://github.com/almarklein/wasmfun) repo contains some more
+Python WebAssembly experiments.
+
+
+<div style='clear: both;'></div>
+## Misc
+
+[Dialite](https://github.com/flexxui/dialite) is a small Python library
+to present the user with a dialog. It has no dependencies; it only uses OS utilities.
+Used by Flexx, and by Pyzo to show info to the user if Qt fails.
+
+
+<div style='clear: both;'></div>
+## Scientific
 
 Visvis and Pyzo originated during my PhD. I also created a few more specialistic tools.
 
@@ -150,10 +178,4 @@ Visvis and Pyzo originated during my PhD. I also created a few more specialistic
 
 [Stentseg](https://github.com/almarklein/stentseg) is a library to perform segmentation of stent grafts in CT data. Mostly developed during my PhD, but in a rather good state. I managed to make it Pure Python by moving a critical part (a specific variant of the MPC algorithm) to scikit-image.
 
-
-<div style='clear: both;'></div>
-## Misc
-
-[Dialite](https://github.com/flexxui/dialite) is a small Python library
-to present the user with a dialog. It has no dependencies; it only uses OS utilities.
-Used by Flexx, and by Pyzo to show info to the user if Qt fails.
+Further I contributed the MCP and Marching Cubes algorithms to [scikit-image](https://github.com/scikit-image/scikit-image/).
