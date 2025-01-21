@@ -255,6 +255,20 @@ runner.add_task(main())
 runner.run()
 ```
 
+This produces:
+
+```
+main slept
+main slept
+harry slept
+ron slept
+harry slept
+ron slept
+harry slept
+ron slept
+ron slept
+Error in task: Meh
+```
 
 ### The final code
 
